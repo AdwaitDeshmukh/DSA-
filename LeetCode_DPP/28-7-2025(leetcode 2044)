@@ -1,0 +1,38 @@
+/*
+first we will find maximum or
+max or will be bitwiser or of all elements
+now using recursion and backtracking we will complre wich subset matches the maxor
+so we will write a func with arg of nums, maxor ,index,current or and then do backtracking and recursion
+*/
+class Solution {
+public:
+
+int solve(vector<int> nums,int maxor,int indx,int curror){
+            //basecase
+            if(indx==nums.size()){
+                if(curror==maxor){
+                    return 1;
+                }
+                else{
+                    return 0;
+                }
+            }
+
+            //incude in or
+            int included=solve(nums,maxor,indx+1,curror|nums[indx]);
+
+            //not included in or
+            int excluded=solve(nums,maxor,indx+1,curror);   
+
+            return included+excluded;         
+        }
+        
+    int countMaxOrSubsets(vector<int>& nums) {
+        int maxor=0;
+        for(int i=0;i<nums.size();i++){
+            maxor|=nums[i];
+            
+        }
+        return solve(nums,maxor,0,0);
+    }
+};
