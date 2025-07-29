@@ -1,0 +1,43 @@
+/*
+For each index, find the smallest subarray starting there 
+whose OR equals the max OR of the whole array.
+
+We go right to left, tracking the nearest position of each set bit.
+The subarray length is the farthest bit position needed to get max OR.
+
+Finally, reverse results to get the correct order.
+*/
+
+class Solution {
+public:
+    vector<int> smallestSubarrays(vector<int>& nums) {
+        vector<int> ans;
+        int n = nums.size();
+        vector<int> nextSetBitPos(32, -1);
+        int maxOR = 0;
+
+        for (int i = n - 1; i >= 0; --i) {
+            maxOR |= nums[i];
+            int curr = nums[i];
+            int pos = 0;
+
+            while (curr) {
+                if (curr & 1) {
+                    nextSetBitPos[pos] = i;
+                }
+                curr /= 2;
+                pos++;
+            }
+
+            int max_idx = *max_element(nextSetBitPos.begin(), nextSetBitPos.end());
+            if (max_idx == -1) {
+                ans.push_back(1);
+            } else {
+                ans.push_back(max_idx - i + 1);
+            }
+        }
+
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
