@@ -1,0 +1,26 @@
+class Solution {
+    //When bitwise and is done the number either remains same or decreases
+    //max and will be the maximum element in the array
+    //the subarray with maximum and will be the subbaray will al max elements in it
+    //so first we will find maximum element and then return the number when the max eement for consecutive most of the times
+public:
+    int longestSubarray(vector<int>& nums) {
+        int max_and=0;
+        for(int i=0;i<nums.size();i++){
+            max_and=max(max_and,nums[i]);
+        }
+         int size=0;
+    int max_size=0;
+    for(int i=0;i<nums.size();i++){
+        if(nums[i]==max_and){
+            size++;
+        }
+        else{
+            size=0;
+        }
+        max_size=max(size,max_size);
+    }
+    return max_size;
+    }
+   
+};
