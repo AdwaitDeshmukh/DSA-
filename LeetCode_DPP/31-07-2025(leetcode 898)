@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int subarrayBitwiseORs(vector<int>& arr) {
+        set<int> prev;
+        set<int> sol;
+        for(int i=0;i<arr.size();i++){
+            set<int> curr;
+            for (int val : prev) {
+                curr.insert(val | arr[i]);
+            }
+            
+            curr.insert(arr[i]);
+            for (int val : curr) {
+                sol.insert(val);
+            }
+            prev = curr;
+
+
+        }
+        return sol.size();
+    }
+};
